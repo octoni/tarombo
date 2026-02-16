@@ -3,7 +3,7 @@ import '../models/family_node.dart';
 import '../pages/family_node_detail_page.dart';
 import 'tree_connector_painter.dart';
 
-const double nodeWidth = 250;
+const double nodeWidth = 260;
 const double nodeHeight = 52;
 const double horizontalSpacing = 24;
 
@@ -30,9 +30,10 @@ class _FamilyTreeViewState extends State<FamilyTreeView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
-          onTap: hasChildren
-              ? () => setState(() => node.isExpanded = !node.isExpanded)
-              : null,
+          onTap:
+              hasChildren
+                  ? () => setState(() => node.isExpanded = !node.isExpanded)
+                  : null,
           child: Container(
             width: nodeWidth,
             height: nodeHeight,
@@ -57,10 +58,7 @@ class _FamilyTreeViewState extends State<FamilyTreeView> {
                 ),
                 const SizedBox(width: 6),
                 Expanded(
-                  child: Text(
-                    node.name,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  child: Text(node.name, overflow: TextOverflow.ellipsis),
                 ),
                 IconButton(
                   icon: const Icon(Icons.info_outline, size: 18),
@@ -70,8 +68,7 @@ class _FamilyTreeViewState extends State<FamilyTreeView> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) =>
-                            FamilyNodeDetailPage(node: node),
+                        builder: (_) => FamilyNodeDetailPage(node: node),
                       ),
                     );
                   },
@@ -85,20 +82,20 @@ class _FamilyTreeViewState extends State<FamilyTreeView> {
           const SizedBox(height: 12),
           CustomPaint(
             size: Size(connectorWidth, 40),
-            painter:
-                TreeConnectorPainter(childCount: node.children.length),
+            painter: TreeConnectorPainter(childCount: node.children.length),
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: node.children.map((child) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: horizontalSpacing / 2,
-                ),
-                child: FamilyTreeView(node: child),
-              );
-            }).toList(),
+            children:
+                node.children.map((child) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: horizontalSpacing / 2,
+                    ),
+                    child: FamilyTreeView(node: child),
+                  );
+                }).toList(),
           ),
         ],
       ],
